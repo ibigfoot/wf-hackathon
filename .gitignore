@@ -1,2 +1,6 @@
 node_modules/
+<<<<<<< HEAD
 .idea/
+=======
+.temp.js
+>>>>>>> 06bc2a6795fc58d7533b400be3cab21e6cb7ab10
