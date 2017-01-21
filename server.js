@@ -3,12 +3,16 @@
 //var beacon_location = require('./lib/beacon_location');
 var train_journey = require('./lib/train_journey');
 var beacon_mock = require('./lib/beacon_mock');
+var journey = require('./data/journey.json').path;
 
 var say = require('say');
 
 var currentStationID = null;
-
 //say.speak('Your train is approaching', 'Alex', 1.0);
+
+currentStationID = journey[0].StationID;
+startStation = journey[0];
+destination = journey[journey.length-1];
 
 /*beacon_location(function(event) {
     //console.log(event);
@@ -24,16 +28,31 @@ var currentStationID = null;
     }    
 });*/
 
+var begun = false;
+var ended = false;
+
 beacon_mock(function(event) {
     var station = train_journey.getStationNameByBeaconUUID(event);
+    console.log(station)
+    var message = ""
     if (station && station.id) {
-        if (station.id != currentStationID) {
-            var message = 'You are at '+ station.name +' station';
-
-            console.log(message);
+        if (station.id == startStation.StationID && !begun) {
+            message = 'Begin your journey to '+destination.StationName;
+            begun = true;
             say.speak(message, 'Alex', 1.0);
-            currentStationID = station.id;
         }
+        if (station.id != currentStationID && station.id != destination.StationID) {
+            message = 'You are at '+ station.name +' station';
+            say.speak(message, 'Alex', 1.0);
+        }
+        if (station.id == destination.StationID && !ended) {
+            ended = true;
+            message = "You have reached your destination "+destination.StationName+"."
+            say.speak(message, 'Alex', 1.0);
+        }
+        console.log(message);
+        
+        currentStationID = station.id;        
     }    
 });
 
