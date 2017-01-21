@@ -1,7 +1,8 @@
 //'use strict'
 
-var beacon_location = require('./lib/beacon_location');
+//var beacon_location = require('./lib/beacon_location');
 var train_journey = require('./lib/train_journey');
+var beacon_mock = require('./lib/beacon_mock');
 
 var say = require('say');
 
@@ -9,8 +10,8 @@ var currentStationID = null;
 
 //say.speak('Your train is approaching', 'Alex', 1.0);
 
-beacon_location(function(event) {
-    //console.log(event);
+//beacon_location(processBeacon);
+beacon_mock(function(event) {
     var station = train_journey.getStationNameByBeaconUUID(event.uuid);
     if (station && station.id) {
         if (station.id != currentStationID) {
@@ -20,9 +21,24 @@ beacon_location(function(event) {
             say.speak(message, 'Alex', 1.0);
             currentStationID = station.id;
         }
-    }
-
+    }    
 });
+
+var processBeacon = function(event) {
+    console.log(event);
+    var station = train_journey.getStationNameByBeaconUUID(event.uuid);
+    if (station && station.id) {
+        if (station.id != currentStationID) {
+            var message = 'You are at '+ station.name +' station';
+
+            console.log(message);
+            say.speak(message, 'Alex', 1.0);
+            currentStationID = station.id;
+        }
+    }    
+}
+
+
 
 //var keypress = require('keypress')
 //
