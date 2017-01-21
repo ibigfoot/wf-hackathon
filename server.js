@@ -28,6 +28,17 @@ destination = journey[journey.length-1];
     }    
 });*/
 
+/*
+    Event: Arriving on platform
+    Action: Is this my train?
+    Event: Your train is arriving
+    Event: Leaving origin
+    Action: How much further?
+    Event: Disruption
+    Event: One more stop
+    Event: Arriving at destination
+*/
+
 beacon_mock(function(event) {
     var station = train_journey.getStationNameByBeaconUUID(event);
     console.log(station)
@@ -52,44 +63,66 @@ beacon_mock(function(event) {
     }    
 });
 
+var continueFunc;
+var furtherInfoFunc;
+
+var keypress = require('keypress')
+keypress(process.stdin)
+
+process.stdin.on('keypress', function (ch, key) {
+    console.log('got keypress ['+JSON.stringify(key)+']')
+    if (key && key.ctrl && key.name == 'c') {
+        process.exit();
+    }
+    //arriving on platform
+    // ACTION - is this my train?
+    // event arriving
+    if (key && key.name == 'a') {
+        eventArrivingAtPlatform();
+    }
+    // event - leaving origin
+    if (key && key.name == 'l') {
+        say.speak("You're leaving the platform ", 'Alex', 1.0);
+    }
+    if (key && key.name == 'n') {
+        nextFunc();
+    }
+    // ACTION - how much further
+
+    // event - distruption
+
+    // event - one more stop
+
+    // event - arriving at destination
+
+});
+
+process.stdin.setRawMode(true);
+process.stdin.resume();
+
+function actionHowMuchFurther() {
+    
+}
 
 
-//var keypress = require('keypress')
-//
-//keypress(process.stdin)
-//
-//var state = {
-//    journey : [], // from TFL
-//    currentStation : {},  // updated as we move through the journey
-//    originStation : {
-//        StationID:"9400ZZLUIMP",
-//        StationName:"Imperial College",
-//        Major:999,
-//        InstancePrefix:"9999",
-//        Latitude:51.498519,
-//        Longitude:-0.177673,
-//        WayfindrEnabled:true},
-//    destinationStation : {
-//        StationID:"9400ZZLUECT",
-//        StationName:"Earls Court",
-//        Major:63,
-//        InstancePrefix:"003F",
-//        Latitude:51.491876,
-//        Longitude:-0.193526,
-//        WayfindrEnabled:true}
-//}
-//// start journey
-//// start beacon listener
-////
-//process.stdin.on('keypress', function (ch, key) {
-//    console.log('got keypress ['+JSON.stringify(key)+']')
-//    if (key && key.ctrl && key.name == 'c') {
-//        process.stdin.pause();
-//    }
-//
-//    //
-//
-//});
-//
-//process.stdin.setRawMode(true);
-//process.stdin.resume();
+function eventArrivingAtPlatform() {
+    say.speak("You're train is arriving. Would you like to hear the safety", 'Alex', 1.0);
+    nextFunc = function() {
+
+    }
+}
+function eventLeavingOrigin() {
+    say.speak("You're leaving the platform. Would you like to alert other users to changed conditions? ", 'Alex', 1.0);
+}
+
+function eventDisruption () {
+    say.speak("There appears to be a disruption in your route. Would you like a different route? ", 'Alex', 1.0);  
+}
+
+function eventOneMoreStop () {
+    say.speak("You are approaching STATION. The next stop after <STATION> is your stop: DESTINATION STATION. ? ", 'Alex', 1.0); 
+}
+
+function eventArrivingAtDestination() {
+    say.speak("You are now arriving at DESTINATION_STATION. When you get off you'll have a wall in front of you and the exit will be to the right. ", 'Alex', 1.0); 
+} 
