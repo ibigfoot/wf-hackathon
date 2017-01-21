@@ -1,0 +1,3 @@
+# Simple Node App for the Wayfinder Hackathon.
+
+Maybe one day we'll document this...
