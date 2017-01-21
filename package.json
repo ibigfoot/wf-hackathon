@@ -11,7 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "bleacon": "^0.5.1",
+    "bplist-parser": "^0.1.1",
     "keypress": "^0.2.1",
+    "request": "^2.79.0",
     "tty": "^1.0.1",
     "xpc-connection": "^0.1.4"
   }
