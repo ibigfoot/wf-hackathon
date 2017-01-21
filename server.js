@@ -10,9 +10,22 @@ var currentStationID = null;
 
 //say.speak('Your train is approaching', 'Alex', 1.0);
 
-//beacon_location(processBeacon);
-beacon_mock(function(event) {
+/*beacon_location(function(event) {
+    //console.log(event);
     var station = train_journey.getStationNameByBeaconUUID(event.uuid);
+    if (station && station.id) {
+        if (station.id != currentStationID) {
+            var message = 'You are at '+ station.name +' station';
+
+            console.log(message);
+            say.speak(message, 'Alex', 1.0);
+            currentStationID = station.id;
+        }
+    }    
+});*/
+
+beacon_mock(function(event) {
+    var station = train_journey.getStationNameByBeaconUUID(event);
     if (station && station.id) {
         if (station.id != currentStationID) {
             var message = 'You are at '+ station.name +' station';
@@ -23,20 +36,6 @@ beacon_mock(function(event) {
         }
     }    
 });
-
-var processBeacon = function(event) {
-    console.log(event);
-    var station = train_journey.getStationNameByBeaconUUID(event.uuid);
-    if (station && station.id) {
-        if (station.id != currentStationID) {
-            var message = 'You are at '+ station.name +' station';
-
-            console.log(message);
-            say.speak(message, 'Alex', 1.0);
-            currentStationID = station.id;
-        }
-    }    
-}
 
 
 
