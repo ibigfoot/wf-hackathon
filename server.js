@@ -16,7 +16,7 @@ destination = journey[journey.length-1];
 
 /*beacon_location(function(event) {
     //console.log(event);
-    var station = train_journey.getStationNameByBeaconUUID(event.uuid);
+    var station = train_journey.getStationNameByBeaconUUID(event);
     if (station && station.id) {
         if (station.id != currentStationID) {
             var message = 'You are at '+ station.name +' station';
