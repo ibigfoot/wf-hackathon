@@ -28,30 +28,26 @@ destination = journey[journey.length-1];
     }    
 });*/
 
-var begun = false;
-var ended = false;
-
 beacon_mock(function(event) {
     var station = train_journey.getStationNameByBeaconUUID(event);
     console.log(station)
     var message = ""
     if (station && station.id) {
-        if (station.id == startStation.StationID && !begun) {
+        if (station.id == startStation.StationID && station.id != currentStationID) {
             message = 'Begin your journey to '+destination.StationName;
             begun = true;
-            say.speak(message, 'Alex', 1.0);
         }
         if (station.id != currentStationID && station.id != destination.StationID) {
             message = 'You are at '+ station.name +' station';
-            say.speak(message, 'Alex', 1.0);
         }
-        if (station.id == destination.StationID && !ended) {
+        if (station.id == destination.StationID && station.id != currentStationID) {
             ended = true;
-            message = "You have reached your destination "+destination.StationName+"."
+            message = "You have reached your destination "+destination.StationName+"."   
+        }
+        if (message != "") {
+            console.log(message);
             say.speak(message, 'Alex', 1.0);
         }
-        console.log(message);
-        
         currentStationID = station.id;        
     }    
 });
