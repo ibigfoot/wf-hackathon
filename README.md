@@ -1,6 +1,6 @@
 # Simple Node App for the Wayfinder Hackathon.
 
-This is a demonstration of concept for [Wayfindr](https://www.wayfindr.net/) Hackathon. Effectively a thought experiment on how [TFL](https://tfl.gov.uk/) and Wayfindr could build / improve on the [TFL api's]((https://api.tfl.gov.uk/)) with a focus on helping the visually impared. 
+This is a demonstration of concept for [Wayfindr](https://www.wayfindr.net/) Hackathon. Effectively a thought experiment on how [TFL](https://tfl.gov.uk/) and Wayfindr could build / improve on the [TFL api's](https://api.tfl.gov.uk/) with a focus on helping the visually impared. 
 
 ### The Journey
 Penny is a visually impared traveller who needs to get from her local Tube station, Borough, to Moorefields Eye Hospital that is near Old Street station. 
