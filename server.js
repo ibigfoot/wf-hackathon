@@ -15,45 +15,45 @@
 //var beacon_location = require('./lib/beacon_location');
 var train_journey = require('./lib/train_journey');
 var beacon_mock = require('./lib/beacon_mock');
-var journey = require('./data/journey.json').path;
+//var journey = require('./data/journey.json').path;
 var beacons = require('./data/beacons.json');
 var player = require('play-sound')(opts = {})
 
 var say = require('say');
-
 var speachSpeed = 1.5
 
-var currentStationID = null;
-var stationIndex = 0;
+var continueFunc = function() {console.log("nothing to do")};
 
 /*beacon_location(function(event) {
     //console.log(event);
-    var station = train_journey.getStationNameByBeaconUUID(event);
-    if (station && station.id) {
-        if (station.id != currentStationID) {
-            var message = 'You are at '+ station.name +' station';
-
-            console.log(message);
-            say.speak(message, 'Alex', speachSpeed);
-            currentStationID = station.id;
-        }
-    }    
+    determineEvent(event); 
 });*/
 
 
 function determineEvent (event) {
     var station = train_journey.getStationNameByBeaconUUID(event);
+    if (station && station.id) {
+        console.log(station)
+        if (train_journey.isChanged(station)) {
+            console.log("Is changed : true");
+            if (train_journey.isFirst(station.id)) {
+                eventArrivingAtPlatform();
+            }
+            if (train_journey.isPenultimate(station.id)) {
+                eventOneMoreStop();
+            } 
+            if (train_journey.isLast(station.id)) {
+                eventArrivingAtDestination();
+            }
+        }
+    } 
 }
 
-currentStationID = "";
-startStation = journey[0];
-destination = journey[journey.length-1];
-
-var continueFunc;
-var furtherInfoFunc;
 
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
+
+var beaconIndex = 0; //used for mocking 
 
 process.stdin.on('data', function(chunk) {
 
@@ -95,28 +95,7 @@ process.stdin.on('data', function(chunk) {
 });
 
 function mockEvent(mockEvent) {
-    var station = train_journey.getStationNameByBeaconUUID(mockEvent);
-    console.log(station)
-    var message = ""
-    if (station && station.id) {
-        if (station.id == startStation.StationID && station.id != currentStationID) {
-            message = 'Begin your journey to '+destination.StationName;
-            begun = true;
-        }
-        if (station.id != currentStationID && station.id != destination.StationID) {
-            message = 'You are at '+ station.name +' station';
-        }
-        if (station.id == destination.StationID && station.id != currentStationID) {
-            ended = true;
-            message = "You have reached your destination "+destination.StationName+"."   
-        }
-        if (message != "") {
-            console.log(message);
-            stationIndex++
-            say.speak(message, 'Alex', 1.0);
-        }
-        currentStationID = station.id;        
-    }    
+    determineEvent(mockEvent); 
 }
 /*
     An action that is fired by user when they want to know how much further they have to go.
@@ -127,7 +106,7 @@ function actionHowMuchFurther() {
 
 function eventArrivingAtPlatform() {
     f = function () {
-        say.speak("You are now on platform 1. Your train to " + destination.StationName + 
+        say.speak("You are now on platform 1. Your train to " + train_journey.getDestination().StationName + 
         " station will arrive in about 8mins. Two trains will arrive on this platform before your train. "+
         "We recommend you plan to enter at the front of the train, which is to your right. "+
         "Click to hear safety informationabout this platform.", "Alex", speachSpeed);
@@ -136,6 +115,7 @@ function eventArrivingAtPlatform() {
             "Warning 1: There is a big gap between the platform and the train. "+
             "Warning 2: There is a step. The floor of the train is above the level of the platform.", 
             "Alex", speachSpeed);
+            continueFunc = function () {console.log("nothing to do");}
         }
     }
     playAlert(f);
@@ -156,7 +136,7 @@ function eventLeavingOrigin() {
 function eventDisruption () {
 
     f = function () {
-        say.speak("We have been notified of a disruption that may delay your arrival at "+destination.StationName+
+        say.speak("We have been notified of a disruption that may delay your arrival at "+train_journey.getDestination().StationName+
         ". The estimated delay is 17 minutes. Click to hear about a faster route.", "Alex", speachSpeed);
         continueFunc = function() {
             console.log("Nothing to do here");
@@ -174,6 +154,7 @@ function eventOneMoreStop () {
             say.speak("There is a curved platform at this station, be extra careful of the gap when leaving the train. "+
             "The platform is a single platform and your nearest exit will be to the left. "+
             "Today, it seems to be busier than usual at this station.", 'Alex', speachSpeed);
+            continueFunc = function () {console.log("nothing to do");}
         }
     }
     playAlert(f);
@@ -181,7 +162,7 @@ function eventOneMoreStop () {
 
 function eventArrivingAtDestination() {
     f = function() {
-        say.speak("You are now arriving at "+destination.StationName+
+        say.speak("You are now arriving at "+train_journey.getDestination().StationName+
             ". When you get off you'll have a wall in front of you and the exit will be to the right. ", 
             'Alex', speachSpeed); 
         continueFunc = function() {
@@ -194,5 +175,5 @@ function eventArrivingAtDestination() {
 function playAlert(nf) {
     player.play('./data/0564.wav', function() {
         continueFunc = nf;
-    });
+   });
 }
