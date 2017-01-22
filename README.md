@@ -6,6 +6,9 @@ This is a demonstration of concept for [Wayfindr](https://www.wayfindr.net/) Hac
 Penny is a visually impared traveller who needs to get from her local Tube station, Borough, to Moorefields Eye Hospital that is near Old Street station. 
 Today, Penny is using Wayfindr and TFL APIs to help her naviagte the tube. 
 
+### The Experience
+Penny will be alerted by an audio chime whenever the app has something to tell her. Each interaction will be driven by a simple button click, this could either be through a bluetooth headset or perhaps the home button or one of the other buttons on her phone. The application will cache the journey and all relevant information at the origin station and we envisage that it will attempt to connect to the network while on the journey to continually check her route is the most relevant. 
+
 ### The Demonstration
 This is a very simple node.js application that is designed to operate without a visual UI, something that forced us to think about how to build an effective conversational UI to operate while on journey. 
 
@@ -21,11 +24,19 @@ All beacon events are mocked, instructions to drive the demonstration. (every ke
 
 The journey is mocked in the journey.json file, this also maps beacons to stations. 
 
+### Running
+```
+> git clone <repo>
+> cd wf-Hackathon
+> npm install
+> npm start
+
+```
+
 ### Assumptions
 We have assumed that the Wayfindr app is going to navigate Penny through both tube stations and for this scenario we have focused on what the experience needs to be for Penny as she boards, rides and disembarks from the train. If you have glanced at the code, you will notice that there is actually no calls to any APIs here :) 
 
-### The Experience
-Penny will be alerted by an audio chime whenever the app has something to tell her. Each interaction will be driven by a simple button click, this could either be through a bluetooth headset or perhaps the home button or one of the other buttons on her phone. The application will cache the journey and all relevant information at the origin station and we envisage that it will attempt to connect to the network while on the journey to continually check her route is the most relevant. 
+
 
 ### Contributors
 Justin Tauber - User Experience
