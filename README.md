@@ -25,9 +25,12 @@ All beacon events are mocked, instructions to drive the demonstration. (every ke
 The journey is mocked in the journey.json file, this also maps beacons to stations. 
 
 ### Running
+
+We use [NPM](https://docs.npmjs.com/getting-started/what-is-npm) to manage the node stuff for this. If you haven't got your environment setup, visit the website and work through the installation. You will need Node.js and NPM 
+
 ```
 > git clone <repo>
-> cd wf-Hackathon
+> cd wf-hackathon
 > npm install
 > npm start
 
