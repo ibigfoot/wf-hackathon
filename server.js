@@ -1,7 +1,7 @@
 //'use strict'
 
 /*
-    a - Action is how much further
+    a - how much further?
     c - continue
     z - mock beacon event
 
@@ -10,6 +10,24 @@
     3 - There is a disruption to your journey
     4 - Arrived at the penultimate stop
     5 - Arrived at destination
+
+    Demo (using Mock) ... all keypress events need to be followed with an enter
+
+     Fire mock beacon (z) until first audio notification.
+        - You have reached your platform.
+        - There are 2 continuation messages available
+    Fire another mock beacon (z)
+    Press 2 
+        - Leaving platform notification
+    Fire another 2 mock beacons (z)
+    Press 3
+        - There is a service disruption
+    Fire mock beacon until next audio
+        - Penultimate station with follow on messages
+    Fire mock until next audio  
+        - you have arrived.
+
+    END
 */
 
 //var beacon_location = require('./lib/beacon_location');
