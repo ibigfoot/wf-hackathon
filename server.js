@@ -39,6 +39,7 @@ var player = require('play-sound')(opts = {})
 
 var say = require('say');
 var speachSpeed = 1.5
+var speaker = 'Alex'
 
 var continueFunc = function() {console.log("nothing to do")};
 
@@ -119,20 +120,26 @@ function mockEvent(mockEvent) {
     An action that is fired by user when they want to know how much further they have to go.
 */
 function actionHowMuchFurther() {
-    say.speak("You need to implement this", "Alex", speachSpeed)
+    var stopsLeft = train_journey.stopsToDestination();
+    say.speak("You have "+stopsLeft+" stops remaining. We estimate this should take approximately "+(stopsLeft*2)+" minutes", 
+        speaker, 
+        speachSpeed);
 }
 
 function eventArrivingAtPlatform() {
     f = function () {
         say.speak("You are now on platform 1. Your train to " + train_journey.getDestination().StationName + 
-        " station will arrive in about 8mins. Two trains will arrive on this platform before your train. "+
-        "We recommend you plan to enter at the front of the train, which is to your right. "+
-        "Click to hear safety informationabout this platform.", "Alex", speachSpeed);
+            " station will arrive in about 8mins. Two trains will arrive on this platform before your train. "+
+            "We recommend you plan to enter at the front of the train, which is to your right. "+
+            "Click to hear safety informationabout this platform.", 
+            speaker, 
+            speachSpeed);
         continueFunc = function () {
             say.speak("There are 2 warnings about this platform. "+
             "Warning 1: There is a big gap between the platform and the train. "+
             "Warning 2: There is a step. The floor of the train is above the level of the platform.", 
-            "Alex", speachSpeed);
+            speaker, 
+            speachSpeed);
             continueFunc = function () {console.log("nothing to do");}
         }
     }
@@ -143,7 +150,9 @@ function eventLeavingOrigin() {
 
     f = function () {
         say.speak("Looks like you're on your way. "+
-                "Click if you would like to contribute safety information about the station you just left.", "Alex", speachSpeed);
+                "Click if you would like to contribute safety information about the station you just left.", 
+                speaker, 
+                speachSpeed);
         continueFunc = function () {
                 console.log('Nothing to do');
         }
@@ -155,7 +164,9 @@ function eventDisruption () {
 
     f = function () {
         say.speak("We have been notified of a disruption that may delay your arrival at "+train_journey.getDestination().StationName+
-        ". The estimated delay is 17 minutes. Click to hear about a faster route.", "Alex", speachSpeed);
+            ". The estimated delay is 17 minutes. Click to hear about a faster route.", 
+            speaker, 
+            speachSpeed);
         continueFunc = function() {
             console.log("Nothing to do here");
         }
@@ -166,12 +177,16 @@ function eventDisruption () {
 function eventOneMoreStop () {
     f = function() {
         say.speak("You are approaching Moorgate station. "+
-        "The next stop after Moorgate is your stop: Old Street Station. "+
-        "Would you like some information about Old Street?", "Alex", speachSpeed);
+            "The next stop after Moorgate is your stop: Old Street Station. "+
+            "Would you like some information about Old Street?", 
+            speaker, 
+            speachSpeed);
         continueFunc = function () {
             say.speak("There is a curved platform at this station, be extra careful of the gap when leaving the train. "+
-            "The platform is a single platform and your nearest exit will be to the left. "+
-            "Today, it seems to be busier than usual at this station.", 'Alex', speachSpeed);
+                "The platform is a single platform and your nearest exit will be to the left. "+
+                "Today, it seems to be busier than usual at this station.", 
+                speaker, 
+                speachSpeed);
             continueFunc = function () {console.log("nothing to do");}
         }
     }
@@ -182,7 +197,8 @@ function eventArrivingAtDestination() {
     f = function() {
         say.speak("You are now arriving at "+train_journey.getDestination().StationName+
             ". When you get off you'll have a wall in front of you and the exit will be to the right. ", 
-            'Alex', speachSpeed); 
+            speaker, 
+            speachSpeed); 
         continueFunc = function() {
             console.log("Nothing to do");
         }
