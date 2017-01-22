@@ -1,6 +1,6 @@
 # Simple Node App for the Wayfinder Hackathon.
 
-This is a demonstration of concept for [Wayfindr](https://www.wayfindr.net/) Hackathon. Effectively a thought experiment on how [TFL](https://tfl.gov.uk/) ([api](https://api.tfl.gov.uk/)) and Wayfindr could build / improve on the [TFL api's](http://wayfindr.azurewebsites.net/) with a focus on helping the visually impared. 
+This is a demonstration of concept for [Wayfindr](https://www.wayfindr.net/) Hackathon. Effectively a thought experiment on how [TFL](https://tfl.gov.uk/) and Wayfindr could build / improve on the [TFL api's]((https://api.tfl.gov.uk/)) with a focus on helping the visually impared. 
 
 ### The Journey
 Penny is a visually impared traveller who needs to get from her local Tube station, Borough, to Moorefields Eye Hospital that is near Old Street station. 
@@ -20,7 +20,7 @@ All beacon events are mocked, instructions to drive the demonstration. (every ke
 
 
 ### Assumptions
-We have assumed that the Wayfindr app is going to navigate Penny through both tube stations and for this scenario we have focused on what the experience needs to be for Penny as she boards, rides and disembarks from the train. 
+We have assumed that the Wayfindr app is going to navigate Penny through both tube stations and for this scenario we have focused on what the experience needs to be for Penny as she boards, rides and disembarks from the train. If you have glanced at the code, you will notice that there is actually no calls to any APIs here :) 
 
 ### The Experience
 Penny will be alerted by an audio chime whenever the app has something to tell her. Each interaction will be driven by a simple button click, this could either be through a bluetooth headset or perhaps the home button or one of the other buttons on her phone. The application will cache the journey and all relevant information at the origin station and we envisage that it will attempt to connect to the network while on the journey to continually check her route is the most relevant. 
