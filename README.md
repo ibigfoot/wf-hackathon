@@ -23,7 +23,7 @@ The visual impaired people we spoke to, Roxana and Dave, provided the following 
 * Reliance on VIP services at the station makes it problematic to change journey plans. Not turning up at a station as expected can lead to a wild goose chase for a missing VIP.
 * VIPs like Roxana, with partial sight, like to have a multimodal experience, so they confirm what they heard, or choose which sensory they prefer.
 
-Demo Scenario
+### Demo Scenario
 
 Our demo starts with our VIP commuter, Penny, standing on the platform.
 Penny has been guided down to the platform using the Wayfindr app, so we already know where she’s heading, which train she’s taking, which and station she’s travelling to, and that she’s on the right platform. 
