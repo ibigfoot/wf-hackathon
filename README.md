@@ -33,13 +33,13 @@ Today, Penny is travelling on the Northern Line from Borough to Old Street.
 ### Design principles
 
 1. Do not disturb 
-* ask for permission to talk to the commuter
+  * ask for permission to talk to the commuter
 2. Almost hands-free 
-* keep interactions to an absolutely minimum, we imagined a bluetooth headset or a bone induction headphones with a single button
+  * keep interactions to an absolutely minimum, we imagined a bluetooth headset or a bone induction headphones with a single button
 3. Regions and thresholds
-* beacons aren't accurate enough to determine a person's location with sub-metre accuracy
+  * beacons aren't accurate enough to determine a person's location with sub-metre accuracy
 4. Flow and autonomy
-* step-by-step instructions can actually undermine autonomy and personal space, instead help people prepare for a transition, so they can decide for themselves, and gracefully handle the new environment
+  * step-by-step instructions can actually undermine autonomy and personal space, instead help people prepare for a transition, so they can decide for themselves, and gracefully handle the new environment
 
 
 ### The Experience
